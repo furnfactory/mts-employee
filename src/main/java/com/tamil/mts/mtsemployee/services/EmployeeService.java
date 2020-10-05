@@ -16,5 +16,6 @@ import com.tamil.mts.mtsemployee.web.model.EmployeeDto;
 public interface EmployeeService {
 
 	EmployeeDto getEmployeeById(UUID employeeId);
-	
+
+	EmployeeDto saveNewEmployee(EmployeeDto employeeDto);
 }

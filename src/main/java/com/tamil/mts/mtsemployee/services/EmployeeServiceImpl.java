@@ -23,4 +23,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return EmployeeDto.builder().id(UUID.randomUUID()).name("Murugan").age(33).build();
 	}
 
+	@Override
+	public EmployeeDto saveNewEmployee(EmployeeDto employeeDto) {
+		return EmployeeDto.builder().id(UUID.randomUUID()).build();
+	}
+
 }
