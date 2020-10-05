@@ -43,7 +43,7 @@ public class EmployeeController {
 	public ResponseEntity createEmployee(EmployeeDto employeeDto) {
 		EmployeeDto savedEmployeeDto = employeeService.saveNewEmployee(employeeDto);
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("employeeUUID", "api/v1/employee/" + savedEmployeeDto.getId().toString());
+		headers.add("savedEmployeeURI", "api/v1/employee/" + savedEmployeeDto.getId().toString());
 		return new ResponseEntity(headers, HttpStatus.CREATED);
 	}
 	
