@@ -18,4 +18,8 @@ public interface EmployeeService {
 	EmployeeDto getEmployeeById(UUID employeeId);
 
 	EmployeeDto saveNewEmployee(EmployeeDto employeeDto);
+
+	void updateEmployee(UUID empId, EmployeeDto employeeDto);
+
+	void deleteEmployeeById(UUID empId);
 }
