@@ -23,6 +23,6 @@ public class EmployeePagedList extends PageImpl<EmployeeDto> {
 	}
 
 	public EmployeePagedList(List<EmployeeDto> content, Pageable pageable, long total) {
-        super(content, pageable, total);
-    }
+		super(content, pageable, total);
+	}
 }

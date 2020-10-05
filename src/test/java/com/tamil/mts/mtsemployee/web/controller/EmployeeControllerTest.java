@@ -5,8 +5,6 @@
  */
 package com.tamil.mts.mtsemployee.web.controller;
 
-
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -35,33 +33,32 @@ import com.tamil.mts.mtsemployee.web.model.EmployeeType;
 public class EmployeeControllerTest {
 
 	@Autowired
-    MockMvc mockMvc;
-	
+	MockMvc mockMvc;
+
 	@Autowired
-    ObjectMapper objectMapper;
-	
+	ObjectMapper objectMapper;
+
 	@MockBean
 	EmployeeService employeeService;
-	
+
 	@Test
 	void getEmployeeById() throws Exception {
 		given(employeeService.getEmployeeById(any(UUID.class))).willReturn(getEmployeeDto());
 		mockMvc.perform(get("/api/v1/employee/" + UUID.randomUUID().toString()).accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk());
+				.andExpect(status().isOk());
 	}
-	
+
 	@Test
 	void createEmployee() throws Exception {
 		EmployeeDto employeeDto = getEmployeeDto();
 		String employeeDtoJson = objectMapper.writeValueAsString(employeeDto);
 		given(employeeService.saveNewEmployee(any(EmployeeDto.class))).willReturn(getEmployeeDto());
-		mockMvc.perform(post("/api/v1/employee/")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(employeeDtoJson))
-                .andExpect(status().isCreated());
+		mockMvc.perform(post("/api/v1/employee/").contentType(MediaType.APPLICATION_JSON).content(employeeDtoJson))
+				.andExpect(status().isCreated());
 	}
-	
+
 	EmployeeDto getEmployeeDto() {
-		return EmployeeDto.builder().id(UUID.randomUUID()).name("TestEmployee").age(24).employeeType(EmployeeType.LABOUR).build();
+		return EmployeeDto.builder().id(UUID.randomUUID()).name("TestEmployee").age(24)
+				.employeeType(EmployeeType.LABOUR).build();
 	}
 }
