@@ -5,6 +5,8 @@
  */
 package com.tamil.mts.mtsemployee.web.model;
 
+import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import lombok.AllArgsConstructor;
@@ -27,5 +29,15 @@ public class EmployeeDto {
 	private String name;
 	
 	private Integer age;
+	
+	private OffsetDateTime createdDate;
+	
+    private OffsetDateTime lastModifiedDate;
+    
+    private OffsetDateTime joiningDate;
+    
+    private EmployeeType employeeType;
+    
+    private BigDecimal salary;
 	
 }
