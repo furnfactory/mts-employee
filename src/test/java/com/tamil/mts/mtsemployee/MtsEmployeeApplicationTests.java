@@ -1,10 +1,10 @@
-package com.tamil.mts.services.employeeservice;
+package com.tamil.mts.mtsemployee;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class EmployeeServiceApplicationTests {
+class MtsEmployeeApplicationTests {
 
 	@Test
 	void contextLoads() {

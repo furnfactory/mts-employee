@@ -8,11 +8,11 @@
 		<version>2.3.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.tamil.mts.services</groupId>
-	<artifactId>employee-service</artifactId>
+	<groupId>com.tamil.mts</groupId>
+	<artifactId>mts-employee</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>employee-service</name>
-	<description>Employee Management Service</description>
+	<name>mts-employee</name>
+	<description>MTS Employee Management Service</description>
 
 	<properties>
 		<java.version>11</java.version>

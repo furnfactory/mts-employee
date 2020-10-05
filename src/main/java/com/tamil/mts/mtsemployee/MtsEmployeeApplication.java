@@ -1,13 +1,13 @@
-package com.tamil.mts.services.employeeservice;
+package com.tamil.mts.mtsemployee;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EmployeeServiceApplication {
+public class MtsEmployeeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EmployeeServiceApplication.class, args);
+		SpringApplication.run(MtsEmployeeApplication.class, args);
 	}
 
 }
