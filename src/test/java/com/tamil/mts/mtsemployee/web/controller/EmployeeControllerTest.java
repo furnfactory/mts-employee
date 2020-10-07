@@ -42,23 +42,28 @@ public class EmployeeControllerTest {
 	EmployeeService employeeService;
 
 	@Test
-	void getEmployeeById() throws Exception {
-		given(employeeService.getEmployeeById(any(UUID.class))).willReturn(getEmployeeDto());
+	public void getEmployeeById() throws Exception {
+		given(employeeService.getEmployeeById(any(UUID.class))).willReturn(getValidEmployeeDto());
 		mockMvc.perform(get("/api/v1/employee/" + UUID.randomUUID().toString()).accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
 	}
 
 	@Test
-	void createEmployee() throws Exception {
-		EmployeeDto employeeDto = getEmployeeDto();
+	public void createEmployee() throws Exception {
+		EmployeeDto employeeDto = getNewEmployeeDto();
 		String employeeDtoJson = objectMapper.writeValueAsString(employeeDto);
-		given(employeeService.saveNewEmployee(any(EmployeeDto.class))).willReturn(getEmployeeDto());
+		given(employeeService.saveNewEmployee(any(EmployeeDto.class))).willReturn(getValidEmployeeDto());
 		mockMvc.perform(post("/api/v1/employee/").contentType(MediaType.APPLICATION_JSON).content(employeeDtoJson))
 				.andExpect(status().isCreated());
 	}
 
-	EmployeeDto getEmployeeDto() {
+	private EmployeeDto getValidEmployeeDto() {
 		return EmployeeDto.builder().id(UUID.randomUUID()).name("TestEmployee").age(24)
+				.employeeType(EmployeeType.LABOUR).build();
+	}
+	
+	private EmployeeDto getNewEmployeeDto() {
+		return EmployeeDto.builder().name("TestNewEmployee").age(24)
 				.employeeType(EmployeeType.LABOUR).build();
 	}
 }

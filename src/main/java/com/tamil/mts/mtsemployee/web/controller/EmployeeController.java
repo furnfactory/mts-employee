@@ -7,6 +7,8 @@ package com.tamil.mts.mtsemployee.web.controller;
 
 import java.util.UUID;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +46,7 @@ public class EmployeeController {
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@PostMapping
-	public ResponseEntity createEmployee(@RequestBody EmployeeDto employeeDto) {
+	public ResponseEntity createEmployee(@Valid @RequestBody EmployeeDto employeeDto) {
 		EmployeeDto savedEmployeeDto = employeeService.saveNewEmployee(employeeDto);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Location", "api/v1/employee/" + savedEmployeeDto.getId().toString());
@@ -53,7 +55,7 @@ public class EmployeeController {
 	
 	@SuppressWarnings({ "rawtypes"})
 	@PutMapping({"/{empId}"})
-	public ResponseEntity updateEmployee(@PathVariable("empId") UUID empId, @RequestBody EmployeeDto employeeDto) {
+	public ResponseEntity updateEmployee(@PathVariable("empId") UUID empId,@Valid @RequestBody EmployeeDto employeeDto) {
 		employeeService.updateEmployee(empId, employeeDto);
 		return new ResponseEntity(HttpStatus.NOT_IMPLEMENTED);
 	}
@@ -63,4 +65,5 @@ public class EmployeeController {
     public void deleteBeer(@PathVariable("empId") UUID empId){
 		employeeService.deleteEmployeeById(empId);
     }
+	
 }
