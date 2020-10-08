@@ -49,7 +49,7 @@ public class EmployeeControllerTest {
 	}
 
 	@Test
-	public void createEmployee() throws Exception {
+	public void createValidEmployee() throws Exception {
 		EmployeeDto employeeDto = getNewEmployeeDto();
 		String employeeDtoJson = objectMapper.writeValueAsString(employeeDto);
 		given(employeeService.saveNewEmployee(any(EmployeeDto.class))).willReturn(getValidEmployeeDto());
@@ -57,13 +57,27 @@ public class EmployeeControllerTest {
 				.andExpect(status().isCreated());
 	}
 
+	@Test
+	public void createInvalidEmployee() throws Exception {
+		EmployeeDto employeeDto = getNewInvalidEmployeeDto();
+		String employeeDtoJson = objectMapper.writeValueAsString(employeeDto);
+		given(employeeService.saveNewEmployee(any(EmployeeDto.class))).willReturn(getValidEmployeeDto());
+		mockMvc.perform(post("/api/v1/employee/").contentType(MediaType.APPLICATION_JSON).content(employeeDtoJson))
+				.andExpect(status().is4xxClientError());
+	}
+	
 	private EmployeeDto getValidEmployeeDto() {
 		return EmployeeDto.builder().id(UUID.randomUUID()).name("TestEmployee").age(24)
 				.employeeType(EmployeeType.LABOUR).build();
 	}
 	
 	private EmployeeDto getNewEmployeeDto() {
-		return EmployeeDto.builder().name("TestNewEmployee").age(24)
+		return EmployeeDto.builder().name("Test").age(24)
+				.employeeType(EmployeeType.LABOUR).build();
+	}
+	
+	private EmployeeDto getNewInvalidEmployeeDto() {
+		return EmployeeDto.builder().name("").age(90)
 				.employeeType(EmployeeType.LABOUR).build();
 	}
 }
