@@ -11,6 +11,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
@@ -42,7 +44,7 @@ public class EmployeeControllerTest {
 	EmployeeService employeeService;
 
 	private final String EMPLOYEE_API_PATH = "/api/v1/employee/";
-	
+
 	@Test
 	public void getEmployeeById() throws Exception {
 		given(employeeService.getEmployeeById(any(UUID.class))).willReturn(getValidEmployeeDto());
@@ -67,19 +69,18 @@ public class EmployeeControllerTest {
 		mockMvc.perform(post(EMPLOYEE_API_PATH).contentType(MediaType.APPLICATION_JSON).content(employeeDtoJson))
 				.andExpect(status().is4xxClientError());
 	}
-	
+
 	private EmployeeDto getValidEmployeeDto() {
 		return EmployeeDto.builder().id(UUID.randomUUID()).name("TestEmployee").age(24)
 				.employeeType(EmployeeType.LABOUR).build();
 	}
-	
+
 	private EmployeeDto getNewEmployeeDto() {
-		return EmployeeDto.builder().name("Test").age(24)
-				.employeeType(EmployeeType.LABOUR).build();
+		return EmployeeDto.builder().name("Test").age(24).joiningDate(OffsetDateTime.now())
+				.salary(BigDecimal.valueOf(1000.00)).employeeType(EmployeeType.LABOUR).build();
 	}
-	
+
 	private EmployeeDto getInvalidEmployeeDto() {
-		return EmployeeDto.builder().id(UUID.randomUUID()).name("").age(90)
-				.employeeType(EmployeeType.LABOUR).build();
+		return EmployeeDto.builder().id(UUID.randomUUID()).name("").age(90).employeeType(EmployeeType.LABOUR).build();
 	}
 }

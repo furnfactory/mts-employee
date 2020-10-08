@@ -12,7 +12,9 @@ import java.util.UUID;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
+import javax.validation.constraints.Positive;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,14 +40,20 @@ public class EmployeeDto {
 	@Min(18) @Max(60)
 	private Integer age;
 	
+	@Null
 	private OffsetDateTime createdDate;
 	
+	@Null
     private OffsetDateTime lastModifiedDate;
     
+	@NotNull
     private OffsetDateTime joiningDate;
     
+	@NotNull
     private EmployeeType employeeType;
     
+	@NotNull
+    @Positive
     private BigDecimal salary;
 	
 }
