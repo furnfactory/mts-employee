@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tamil.mts.mtsemployee.services.EmployeeService;
 import com.tamil.mts.mtsemployee.web.model.EmployeeDto;
 
+import lombok.val;
+
 /**
  * @author murugan
  *
@@ -50,8 +52,8 @@ public class EmployeeController {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@PostMapping
 	public ResponseEntity createEmployee(@Valid @NotNull @RequestBody EmployeeDto employeeDto) {
-		EmployeeDto savedEmployeeDto = employeeService.saveNewEmployee(employeeDto);
-		HttpHeaders headers = new HttpHeaders();
+		val savedEmployeeDto = employeeService.saveNewEmployee(employeeDto);
+		val headers = new HttpHeaders();
 		headers.add("Location", "api/v1/employee/" + savedEmployeeDto.getId().toString());
 		return new ResponseEntity(headers, HttpStatus.CREATED);
 	}
