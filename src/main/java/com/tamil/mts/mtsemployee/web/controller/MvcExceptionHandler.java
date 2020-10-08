@@ -35,16 +35,18 @@ public class MvcExceptionHandler {
 			validationErrors.add(String.format("%s = %s, message: %s", fieldError.getField(),
 					fieldError.getRejectedValue(), fieldError.getDefaultMessage()));
 		});
+		log.info("MethodArgumentNotValidException occurred: {}", ex.getMessage());
 		return new ResponseEntity<>(validationErrors, HttpStatus.BAD_REQUEST);
 	}
 
-	// TODO - Know the between ConstraintViolation & MethodArgumentNotValid
+	// TODO - Know the difference - ConstraintViolation vs MethodArgumentNotValid
 	@ExceptionHandler(ConstraintViolationException.class)
 	public ResponseEntity<List<String>> validationErrorHandler(ConstraintViolationException ex) {
 		List<String> validationErrors = new ArrayList<>(ex.getConstraintViolations().size());
 		ex.getConstraintViolations().forEach(violation -> {
 			validationErrors.add(violation.getPropertyPath() + "_" + violation.getMessage());
 		});
+		log.info("ConstraintViolationException occurred: {}", ex.getMessage());
 		return new ResponseEntity<>(validationErrors, HttpStatus.BAD_REQUEST);
 	}
 
