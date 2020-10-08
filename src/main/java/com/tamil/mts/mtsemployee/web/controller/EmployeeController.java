@@ -99,7 +99,6 @@ public class EmployeeController {
 			validationErrors.add(String.format("%s = %s, message: %s", fieldError.getField(),
 					fieldError.getRejectedValue(), fieldError.getDefaultMessage()));
 		});
-		log.info("Method Argument exception: " + ex.getMessage());
 		return new ResponseEntity<>(validationErrors, HttpStatus.BAD_REQUEST);
 	}
 

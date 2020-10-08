@@ -41,10 +41,12 @@ public class EmployeeControllerTest {
 	@MockBean
 	EmployeeService employeeService;
 
+	private final String EMPLOYEE_API_PATH = "/api/v1/employee/";
+	
 	@Test
 	public void getEmployeeById() throws Exception {
 		given(employeeService.getEmployeeById(any(UUID.class))).willReturn(getValidEmployeeDto());
-		mockMvc.perform(get("/api/v1/employee/" + UUID.randomUUID().toString()).accept(MediaType.APPLICATION_JSON))
+		mockMvc.perform(get(EMPLOYEE_API_PATH + UUID.randomUUID().toString()).accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
 	}
 
@@ -53,16 +55,16 @@ public class EmployeeControllerTest {
 		EmployeeDto employeeDto = getNewEmployeeDto();
 		String employeeDtoJson = objectMapper.writeValueAsString(employeeDto);
 		given(employeeService.saveNewEmployee(any(EmployeeDto.class))).willReturn(getValidEmployeeDto());
-		mockMvc.perform(post("/api/v1/employee/").contentType(MediaType.APPLICATION_JSON).content(employeeDtoJson))
+		mockMvc.perform(post(EMPLOYEE_API_PATH).contentType(MediaType.APPLICATION_JSON).content(employeeDtoJson))
 				.andExpect(status().isCreated());
 	}
 
 	@Test
 	public void createInvalidEmployee() throws Exception {
-		EmployeeDto employeeDto = getNewInvalidEmployeeDto();
+		EmployeeDto employeeDto = getInvalidEmployeeDto();
 		String employeeDtoJson = objectMapper.writeValueAsString(employeeDto);
 		given(employeeService.saveNewEmployee(any(EmployeeDto.class))).willReturn(getValidEmployeeDto());
-		mockMvc.perform(post("/api/v1/employee/").contentType(MediaType.APPLICATION_JSON).content(employeeDtoJson))
+		mockMvc.perform(post(EMPLOYEE_API_PATH).contentType(MediaType.APPLICATION_JSON).content(employeeDtoJson))
 				.andExpect(status().is4xxClientError());
 	}
 	
@@ -76,8 +78,8 @@ public class EmployeeControllerTest {
 				.employeeType(EmployeeType.LABOUR).build();
 	}
 	
-	private EmployeeDto getNewInvalidEmployeeDto() {
-		return EmployeeDto.builder().name("").age(90)
+	private EmployeeDto getInvalidEmployeeDto() {
+		return EmployeeDto.builder().id(UUID.randomUUID()).name("").age(90)
 				.employeeType(EmployeeType.LABOUR).build();
 	}
 }
