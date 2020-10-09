@@ -34,6 +34,9 @@ public class EmployeeDto {
 	@Null
 	private UUID id;
 	
+	@Null
+    private Integer version;
+	
 	@NotBlank
 	private String name;
 	
