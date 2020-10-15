@@ -46,7 +46,7 @@ import com.tamil.mts.mtsemployee.web.model.EmployeeType;
  *
  */
 @ExtendWith(RestDocumentationExtension.class)
-@AutoConfigureRestDocs
+@AutoConfigureRestDocs(uriScheme = "https", uriHost = "mtsapps.in", uriPort = 80)
 @WebMvcTest(EmployeeController.class)
 public class EmployeeControllerTest {
 
