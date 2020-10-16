@@ -8,20 +8,42 @@ Employee service application configured with Spring REST Docs.
 
 `EmployeeControllerTest` makes a call to a very simple service and produces three documentation snippets.
 
+GET EMPLOYEE
+
 One showing how to make a request using cURL:
 
-include::{snippets}/orders/curl-request.adoc[]
+include::{snippets}/api/v1/employee/get/curl-request.adoc[]
 
 One showing the HTTP request:
 
-include::{snippets}/orders/http-request.adoc[]
+include::{snippets}/api/v1/employee/get/http-request.adoc[]
 
 One showing the HTTP response:
 
-include::{snippets}/orders/http-response.adoc[]
+include::{snippets}/api/v1/employee/get/http-response.adoc[]
 
 Response Body:
-include::{snippets}/orders/response-body.adoc[]
+include::{snippets}/api/v1/employee/get/response-body.adoc[]
 
 Response Fields:
-include::{snippets}/orders/response-fields.adoc[]
+include::{snippets}/api/v1/employee/get/response-fields.adoc[]
+
+CREATE NEW EMPLOYEE
+
+One showing how to make a request using cURL:
+
+include::{snippets}/api/v1/employee/post/curl-request.adoc[]
+
+One showing the HTTP request:
+
+include::{snippets}/api/v1/employee/post/http-request.adoc[]
+
+Request Fields:
+include::{snippets}/api/v1/employee/post/request-fields.adoc[]
+
+One showing the HTTP response:
+
+include::{snippets}/api/v1/employee/post/http-response.adoc[]
+
+Response Body:
+include::{snippets}/api/v1/employee/post/response-body.adoc[]

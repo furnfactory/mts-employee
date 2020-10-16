@@ -69,7 +69,7 @@ public class EmployeeControllerTest {
 
 		mockMvc.perform(get(EMPLOYEE_API_PATH + "{empId}", UUID.randomUUID().toString()).param("alldetails", "yes")
 				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-				.andDo(document("api/v1/employee/",
+				.andDo(document("api/v1/employee/get",
 						pathParameters(parameterWithName("empId").description("UUID of the desired Employee Id.")),
 						requestParameters(
 								parameterWithName("alldetails").description("Get all details of the Employee.")),
@@ -94,7 +94,7 @@ public class EmployeeControllerTest {
 
 		mockMvc.perform(post(EMPLOYEE_API_PATH).contentType(MediaType.APPLICATION_JSON).content(employeeDtoJson))
 				.andExpect(status().isCreated())
-				.andDo(document("api/v1/employee/",
+				.andDo(document("api/v1/employee/post",
 						requestFields(fields.withPath("id").ignored(), fieldWithPath("version").ignored(),
 								fields.withPath("createdDate").ignored(), fieldWithPath("lastModifiedDate").ignored(),
 								fields.withPath("name").description("Employee Name"),
@@ -115,7 +115,7 @@ public class EmployeeControllerTest {
 
 	private EmployeeDto getValidEmployeeDto() {
 		return EmployeeDto.builder().id(UUID.randomUUID()).name("TestEmployee").age(24)
-				.employeeType(EmployeeType.LABOUR).build();
+				.employeeType(EmployeeType.LABOUR).salary(BigDecimal.valueOf(1000.00)).build();
 	}
 
 	private EmployeeDto getNewEmployeeDto() {
