@@ -15,6 +15,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,6 +39,7 @@ public class EmployeeDto {
     private Integer version;
 	
 	@NotBlank
+	@Size(min = 3, max = 100)
 	private String name;
 	
 	@Min(18) @Max(60)
