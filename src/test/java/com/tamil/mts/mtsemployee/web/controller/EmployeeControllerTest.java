@@ -23,6 +23,9 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,10 +44,13 @@ import com.tamil.mts.mtsemployee.services.EmployeeService;
 import com.tamil.mts.mtsemployee.web.model.EmployeeDto;
 import com.tamil.mts.mtsemployee.web.model.EmployeeType;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author murugan
  *
  */
+@Slf4j
 @ExtendWith(RestDocumentationExtension.class)
 @AutoConfigureRestDocs(uriScheme = "https", uriHost = "mtsapps.in", uriPort = 80)
 @WebMvcTest(EmployeeController.class)
@@ -114,17 +120,23 @@ public class EmployeeControllerTest {
 	}
 
 	private EmployeeDto getValidEmployeeDto() {
-		return EmployeeDto.builder().id(UUID.randomUUID()).name("TestEmployee").age(24)
-				.employeeType(EmployeeType.LABOUR).salary(BigDecimal.valueOf(1000.00)).build();
+		EmployeeDto employee = EmployeeDto.builder().id(UUID.randomUUID())
+				.name(RandomStringUtils.randomAlphabetic(3, 50)).age(RandomUtils.nextInt(18, 60))
+				.employeeType(EmployeeType.LABOUR)
+				.salary(NumberUtils.toScaledBigDecimal(RandomUtils.nextDouble(1000, 5000))).build();
+		log.info("Valid Employee generated: " + employee.toString());
+		return employee;
 	}
 
 	private EmployeeDto getNewEmployeeDto() {
-		return EmployeeDto.builder().name("Test").age(24).joiningDate(OffsetDateTime.now())
-				.salary(BigDecimal.valueOf(1000.00)).employeeType(EmployeeType.LABOUR).build();
+		return EmployeeDto.builder().name(RandomStringUtils.randomAlphabetic(10, 60)).age(RandomUtils.nextInt(18, 60))
+				.joiningDate(OffsetDateTime.now()).salary(BigDecimal.valueOf(1000.00))
+				.employeeType(EmployeeType.ACCOUNTANT).build();
 	}
 
 	private EmployeeDto getInvalidEmployeeDto() {
-		return EmployeeDto.builder().id(UUID.randomUUID()).name("").age(90).employeeType(EmployeeType.LABOUR).build();
+		return EmployeeDto.builder().id(UUID.randomUUID()).name("").age(RandomUtils.nextInt(70, 100))
+				.employeeType(EmployeeType.LABOUR).build();
 	}
 
 	private static class ConstrainedFields {
