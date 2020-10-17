@@ -19,12 +19,8 @@ import static org.springframework.restdocs.request.RequestDocumentation.requestP
 import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.time.OffsetDateTime;
 import java.util.UUID;
 
-import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.RandomUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,16 +36,13 @@ import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tamil.mts.mtsemployee.services.EmployeeService;
+import com.tamil.mts.mtsemployee.web.model.DataProducer;
 import com.tamil.mts.mtsemployee.web.model.EmployeeDto;
-import com.tamil.mts.mtsemployee.web.model.EmployeeType;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author murugan
  *
  */
-@Slf4j
 @ExtendWith(RestDocumentationExtension.class)
 @AutoConfigureRestDocs(uriScheme = "https", uriHost = "mtsapps.in", uriPort = 80)
 @WebMvcTest(EmployeeController.class)
@@ -68,7 +61,7 @@ public class EmployeeControllerTest {
 
 	@Test
 	public void getEmployeeById() throws Exception {
-		given(employeeService.getEmployeeById(any(UUID.class))).willReturn(getValidEmployeeDto());
+		given(employeeService.getEmployeeById(any(UUID.class))).willReturn(DataProducer.getValidEmployeeDto());
 
 		ConstrainedFields fields = new ConstrainedFields(EmployeeDto.class);
 
@@ -91,9 +84,9 @@ public class EmployeeControllerTest {
 
 	@Test
 	public void createValidEmployee() throws Exception {
-		EmployeeDto employeeDto = getNewEmployeeDto();
+		EmployeeDto employeeDto = DataProducer.getNewEmployeeDto();
 		String employeeDtoJson = objectMapper.writeValueAsString(employeeDto);
-		given(employeeService.saveNewEmployee(any(EmployeeDto.class))).willReturn(getValidEmployeeDto());
+		given(employeeService.saveNewEmployee(any(EmployeeDto.class))).willReturn(DataProducer.getValidEmployeeDto());
 
 		ConstrainedFields fields = new ConstrainedFields(EmployeeDto.class);
 
@@ -111,39 +104,11 @@ public class EmployeeControllerTest {
 
 	@Test
 	public void createInvalidEmployee() throws Exception {
-		EmployeeDto employeeDto = getInvalidEmployeeDto();
+		EmployeeDto employeeDto = DataProducer.getInvalidEmployeeDto();
 		String employeeDtoJson = objectMapper.writeValueAsString(employeeDto);
-		given(employeeService.saveNewEmployee(any(EmployeeDto.class))).willReturn(getValidEmployeeDto());
+		given(employeeService.saveNewEmployee(any(EmployeeDto.class))).willReturn(DataProducer.getValidEmployeeDto());
 		mockMvc.perform(post(EMPLOYEE_API_PATH).contentType(MediaType.APPLICATION_JSON).content(employeeDtoJson))
 				.andExpect(status().is4xxClientError());
-	}
-
-	private EmployeeDto getValidEmployeeDto() {
-		EmployeeDto employee = EmployeeDto.builder().id(UUID.randomUUID())
-				.name(RandomStringUtils.randomAlphabetic(3, 50)).age(RandomUtils.nextInt(18, 60))
-				.employeeType(EmployeeType.LABOUR)
-				.salary(NumberUtils.toScaledBigDecimal(RandomUtils.nextDouble(1000, 5000)))
-				.joiningDate(OffsetDateTime.now().minusDays(RandomUtils.nextLong(100, 3000))).build();
-		log.info("Valid Employee generated: " + employee.toString());
-		return employee;
-	}
-
-	private EmployeeDto getNewEmployeeDto() {
-		EmployeeDto employee = EmployeeDto.builder().name(RandomStringUtils.randomAlphabetic(10, 60))
-				.age(RandomUtils.nextInt(18, 60))
-				.joiningDate(OffsetDateTime.now().minusDays(RandomUtils.nextLong(100, 3000)))
-				.salary(NumberUtils.toScaledBigDecimal(RandomUtils.nextDouble(1000, 5000)))
-				.employeeType(EmployeeType.ACCOUNTANT).build();
-		log.info("Valid New Employee generated: " + employee.toString());
-		return employee;
-	}
-
-	private EmployeeDto getInvalidEmployeeDto() {
-		EmployeeDto employee = EmployeeDto.builder().id(UUID.randomUUID())
-				.name(RandomStringUtils.randomAlphabetic(0, 2)).age(RandomUtils.nextInt(70, 100))
-				.employeeType(EmployeeType.LABOUR).build();
-		log.info("Invalid Employee generated: " + employee.toString());
-		return employee;
 	}
 
 	private static class ConstrainedFields {
