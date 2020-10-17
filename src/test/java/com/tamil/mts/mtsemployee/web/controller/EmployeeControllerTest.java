@@ -19,7 +19,6 @@ import static org.springframework.restdocs.request.RequestDocumentation.requestP
 import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -123,22 +122,26 @@ public class EmployeeControllerTest {
 		EmployeeDto employee = EmployeeDto.builder().id(UUID.randomUUID())
 				.name(RandomStringUtils.randomAlphabetic(3, 50)).age(RandomUtils.nextInt(18, 60))
 				.employeeType(EmployeeType.LABOUR)
-				.salary(NumberUtils.toScaledBigDecimal(RandomUtils.nextDouble(1000, 5000))).build();
+				.salary(NumberUtils.toScaledBigDecimal(RandomUtils.nextDouble(1000, 5000)))
+				.joiningDate(OffsetDateTime.now().minusDays(RandomUtils.nextLong(100, 3000))).build();
 		log.info("Valid Employee generated: " + employee.toString());
 		return employee;
 	}
 
 	private EmployeeDto getNewEmployeeDto() {
-		EmployeeDto employee =  EmployeeDto.builder().name(RandomStringUtils.randomAlphabetic(10, 60)).age(RandomUtils.nextInt(18, 60))
-				.joiningDate(OffsetDateTime.now()).salary(BigDecimal.valueOf(1000.00))
+		EmployeeDto employee = EmployeeDto.builder().name(RandomStringUtils.randomAlphabetic(10, 60))
+				.age(RandomUtils.nextInt(18, 60))
+				.joiningDate(OffsetDateTime.now().minusDays(RandomUtils.nextLong(100, 3000)))
+				.salary(NumberUtils.toScaledBigDecimal(RandomUtils.nextDouble(1000, 5000)))
 				.employeeType(EmployeeType.ACCOUNTANT).build();
 		log.info("Valid New Employee generated: " + employee.toString());
 		return employee;
 	}
 
 	private EmployeeDto getInvalidEmployeeDto() {
-		EmployeeDto employee =  EmployeeDto.builder().id(UUID.randomUUID()).name(RandomStringUtils.randomAlphabetic(0, 2))
-				.age(RandomUtils.nextInt(70, 100)).employeeType(EmployeeType.LABOUR).build();
+		EmployeeDto employee = EmployeeDto.builder().id(UUID.randomUUID())
+				.name(RandomStringUtils.randomAlphabetic(0, 2)).age(RandomUtils.nextInt(70, 100))
+				.employeeType(EmployeeType.LABOUR).build();
 		log.info("Invalid Employee generated: " + employee.toString());
 		return employee;
 	}
