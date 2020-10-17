@@ -129,14 +129,18 @@ public class EmployeeControllerTest {
 	}
 
 	private EmployeeDto getNewEmployeeDto() {
-		return EmployeeDto.builder().name(RandomStringUtils.randomAlphabetic(10, 60)).age(RandomUtils.nextInt(18, 60))
+		EmployeeDto employee =  EmployeeDto.builder().name(RandomStringUtils.randomAlphabetic(10, 60)).age(RandomUtils.nextInt(18, 60))
 				.joiningDate(OffsetDateTime.now()).salary(BigDecimal.valueOf(1000.00))
 				.employeeType(EmployeeType.ACCOUNTANT).build();
+		log.info("Valid New Employee generated: " + employee.toString());
+		return employee;
 	}
 
 	private EmployeeDto getInvalidEmployeeDto() {
-		return EmployeeDto.builder().id(UUID.randomUUID()).name("").age(RandomUtils.nextInt(70, 100))
-				.employeeType(EmployeeType.LABOUR).build();
+		EmployeeDto employee =  EmployeeDto.builder().id(UUID.randomUUID()).name(RandomStringUtils.randomAlphabetic(0, 2))
+				.age(RandomUtils.nextInt(70, 100)).employeeType(EmployeeType.LABOUR).build();
+		log.info("Invalid Employee generated: " + employee.toString());
+		return employee;
 	}
 
 	private static class ConstrainedFields {
