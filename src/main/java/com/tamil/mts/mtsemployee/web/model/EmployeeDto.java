@@ -60,6 +60,7 @@ public class EmployeeDto {
 	private OffsetDateTime lastModifiedDate;
 
 	@NotNull
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssZ", shape = JsonFormat.Shape.STRING, timezone = "UTC")
 	private OffsetDateTime joiningDate;
 
 	@NotNull

@@ -6,6 +6,7 @@
 package com.tamil.mts.mtsemployee.web.model;
 
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.UUID;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -26,7 +27,7 @@ public class DataProducer {
 				.name(RandomStringUtils.randomAlphabetic(3, 50)).age(RandomUtils.nextInt(18, 60))
 				.employeeType(EmployeeType.LABOUR)
 				.salary(NumberUtils.toScaledBigDecimal(RandomUtils.nextDouble(1000, 5000)))
-				.joiningDate(OffsetDateTime.now().minusDays(RandomUtils.nextLong(100, 3000))).build();
+				.joiningDate(OffsetDateTime.now(ZoneOffset.UTC).minusDays(RandomUtils.nextLong(100, 3000))).build();
 		log.info("Valid Employee generated: " + employee.toString());
 		return employee;
 	}
@@ -34,7 +35,7 @@ public class DataProducer {
 	public static EmployeeDto getNewEmployeeDto() {
 		EmployeeDto employee = EmployeeDto.builder().name(RandomStringUtils.randomAlphabetic(10, 60))
 				.age(RandomUtils.nextInt(18, 60))
-				.joiningDate(OffsetDateTime.now().minusDays(RandomUtils.nextLong(100, 3000)))
+				.joiningDate(OffsetDateTime.now(ZoneOffset.UTC).minusDays(RandomUtils.nextLong(100, 3000)))
 				.salary(NumberUtils.toScaledBigDecimal(RandomUtils.nextDouble(1000, 5000)))
 				.employeeType(EmployeeType.ACCOUNTANT).build();
 		log.info("Valid New Employee generated: " + employee.toString());
