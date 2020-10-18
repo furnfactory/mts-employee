@@ -17,6 +17,9 @@ import javax.validation.constraints.Null;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,32 +36,39 @@ import lombok.NoArgsConstructor;
 public class EmployeeDto {
 
 	@Null
+	@JsonProperty("empId")
 	private UUID id;
-	
+
 	@Null
-    private Integer version;
-	
+	private Integer version;
+
 	@NotBlank
 	@Size(min = 3, max = 100)
+	@JsonProperty("empName")
 	private String name;
-	
-	@Min(18) @Max(60)
+
+	@Min(18)
+	@Max(60)
+	@JsonProperty("empAge")
 	private Integer age;
-	
+
 	@Null
 	private OffsetDateTime createdDate;
-	
+
 	@Null
-    private OffsetDateTime lastModifiedDate;
-    
+	@JsonProperty("modifiedDate")
+	private OffsetDateTime lastModifiedDate;
+
 	@NotNull
-    private OffsetDateTime joiningDate;
-    
+	private OffsetDateTime joiningDate;
+
 	@NotNull
-    private EmployeeType employeeType;
-    
+	@JsonProperty("empType")
+	private EmployeeType employeeType;
+
 	@NotNull
-    @Positive
-    private BigDecimal salary;
-	
+	@Positive
+	@JsonFormat(shape = JsonFormat.Shape.STRING)
+	private BigDecimal salary;
+
 }
