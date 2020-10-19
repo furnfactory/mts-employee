@@ -51,7 +51,7 @@ public class EmployeeDtoTest {
 		log.info("Employee DTO : " + employee);
 		String employeeToJson = objectMapper.writeValueAsString(employee);
 		log.info("Employee Output Json: " + employeeToJson);
-		assertNotNull(employee, "Employee data in Json foramt deserialized to required Java object using Jackson.");
+		assertNotNull(employee, "Employee data in Json format deserialized to required Java object using Jackson.");
 	}
 
 }

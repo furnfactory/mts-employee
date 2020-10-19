@@ -46,7 +46,7 @@ public class EmployeeDtoKebabTest {
 				+ "\"last-modified-date\":null,\"joining-date\":\"2015-12-05T21:24:00+0530\","
 				+ "\"employee-type\":\"LABOUR\",\"salary\":1088.04}\n";
 		EmployeeDto employee = objectMapper.readValue(jsonFormatEmployee, EmployeeDto.class);
-		assertNotNull(employee, "Employee data in Json foramt deserialized to required Java object using Jackson.");
+		assertNotNull(employee, "Employee data in Json format deserialized to required Java object using Jackson.");
 	}
 
 }

@@ -52,7 +52,7 @@ public class EmployeeDtoSnakeTest {
 				+ "\"last_modified_date\":null,\"joining_date\":\"2013-01-06T21:18:08+0530\","
 				+ "\"employee_type\":\"LABOUR\",\"salary\":3885.37}\"";
 		EmployeeDto employee = objectMapper.readValue(jsonFormatEmployee, EmployeeDto.class);
-		assertNotNull(employee, "Employee data in Json foramt deserialized to required Java object using Jackson.");
+		assertNotNull(employee, "Employee data in Json format deserialized to required Java object using Jackson.");
 	}
 
 	private EmployeeDto getValidEmployeeDto() {
