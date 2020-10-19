@@ -6,6 +6,7 @@
 package com.tamil.mts.mtsemployee.web.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -14,6 +15,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
@@ -71,5 +73,10 @@ public class EmployeeDto {
 	@Positive
 	@JsonFormat(shape = JsonFormat.Shape.STRING)
 	private BigDecimal salary;
+
+	@Past
+	@JsonProperty("empDob")
+	@JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
+	private LocalDate dateOfBirth;
 
 }

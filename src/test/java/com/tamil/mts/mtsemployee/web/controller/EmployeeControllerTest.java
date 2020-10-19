@@ -71,15 +71,16 @@ public class EmployeeControllerTest {
 						pathParameters(parameterWithName("empId").description("UUID of the desired Employee Id.")),
 						requestParameters(
 								parameterWithName("alldetails").description("Get all details of the Employee.")),
-						responseFields(fields.withPath("id").description("Employee UUID Id"),
+						responseFields(fields.withPath("empId").description("Employee UUID Id"),
 								fields.withPath("version").description("Version number"),
-								fields.withPath("name").description("Employee Name"),
-								fields.withPath("age").description("Employee Age"),
+								fields.withPath("empName").description("Employee Name"),
+								fields.withPath("empAge").description("Employee Age"),
 								fields.withPath("createdDate").description("Created Date"),
-								fields.withPath("lastModifiedDate").description("Date Updated"),
+								fields.withPath("modifiedDate").description("Date Updated"),
 								fields.withPath("joiningDate").description("Employee Joining Date"),
-								fields.withPath("employeeType").description("Employee Type"),
-								fields.withPath("salary").description("Base Salary"))));
+								fields.withPath("empType").description("Employee Type"),
+								fields.withPath("salary").description("Base Salary"),
+								fields.withPath("empDob").description("Employee Date Of Birth"))));
 	}
 
 	@Test
@@ -93,13 +94,14 @@ public class EmployeeControllerTest {
 		mockMvc.perform(post(EMPLOYEE_API_PATH).contentType(MediaType.APPLICATION_JSON).content(employeeDtoJson))
 				.andExpect(status().isCreated())
 				.andDo(document("api/v1/employee/post",
-						requestFields(fields.withPath("id").ignored(), fieldWithPath("version").ignored(),
-								fields.withPath("createdDate").ignored(), fieldWithPath("lastModifiedDate").ignored(),
-								fields.withPath("name").description("Employee Name"),
-								fields.withPath("age").description("Employee Age"),
+						requestFields(fields.withPath("empId").ignored(), fieldWithPath("version").ignored(),
+								fields.withPath("createdDate").ignored(), fieldWithPath("modifiedDate").ignored(),
+								fields.withPath("empName").description("Employee Name"),
+								fields.withPath("empAge").description("Employee Age"),
 								fields.withPath("joiningDate").description("Employee Joining Date"),
-								fields.withPath("employeeType").description("Employee Type"),
-								fields.withPath("salary").description("Salary Amount [INR]"))));
+								fields.withPath("empType").description("Employee Type"),
+								fields.withPath("salary").description("Salary Amount [INR]"),
+								fields.withPath("empDob").description("Employee Date Of Birth"))));
 	}
 
 	@Test

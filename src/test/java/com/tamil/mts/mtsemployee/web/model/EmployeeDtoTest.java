@@ -31,7 +31,7 @@ public class EmployeeDtoTest {
 	public void serializeEmployeeDto() throws JsonProcessingException {
 		EmployeeDto employee = DataProducer.getValidEmployeeDto();
 		String employeeJson = objectMapper.writeValueAsString(employee);
-		log.info("Employee DTO : " + employee);
+		log.info("Serialize EmployeeDTO : " + employee);
 		log.info("Employee Json: " + employeeJson);
 		assertNotNull(employeeJson, "Employee Dto serialized to Json format using Jackson.");
 	}
@@ -43,11 +43,11 @@ public class EmployeeDtoTest {
 	//yyyy-MM-dd'T'HH:mm:ssZ 			- 2012-08-15T12:59:31+0530
 	public void deSerializeEmployeeJson() throws JsonProcessingException {
 		String employeeJson = "{\"id\":\"858eacd8-30a4-49e0-a10c-c5fd028178c4\","
-				+ "\"version\":null,\"name\":\"sqJRM\",\"age\":40,\"createdDate\":null,"
+				+ "\"version\":null,\"empName\":\"murugan\",\"empAge\":40,\"createdDate\":null,"
 				+ "\"lastModifiedDate\":null,\"joiningDate\":\"2012-08-15T12:59:31+0000\","
-				+ "\"employeeType\":\"LABOUR\",\"salary\":3998.60}";
+				+ "\"employeeType\":\"LABOUR\",\"salary\":3998.60,\"empDob\":\"1988-08-15\"}";
 		EmployeeDto employee = objectMapper.readValue(employeeJson, EmployeeDto.class);
-		log.info("Employee Input Json: " + employeeJson);
+		log.info("Deserialize EmployeeJson: " + employeeJson);
 		log.info("Employee DTO : " + employee);
 		String employeeToJson = objectMapper.writeValueAsString(employee);
 		log.info("Employee Output Json: " + employeeToJson);
