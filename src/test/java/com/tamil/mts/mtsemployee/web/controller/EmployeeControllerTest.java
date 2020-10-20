@@ -19,8 +19,6 @@ import static org.springframework.restdocs.request.RequestDocumentation.requestP
 import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.math.BigDecimal;
-import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
@@ -38,8 +36,8 @@ import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tamil.mts.mtsemployee.services.EmployeeService;
+import com.tamil.mts.mtsemployee.web.model.DataProducer;
 import com.tamil.mts.mtsemployee.web.model.EmployeeDto;
-import com.tamil.mts.mtsemployee.web.model.EmployeeType;
 
 /**
  * @author murugan
@@ -63,7 +61,7 @@ public class EmployeeControllerTest {
 
 	@Test
 	public void getEmployeeById() throws Exception {
-		given(employeeService.getEmployeeById(any(UUID.class))).willReturn(getValidEmployeeDto());
+		given(employeeService.getEmployeeById(any(UUID.class))).willReturn(DataProducer.getValidEmployeeDto());
 
 		ConstrainedFields fields = new ConstrainedFields(EmployeeDto.class);
 
@@ -73,58 +71,46 @@ public class EmployeeControllerTest {
 						pathParameters(parameterWithName("empId").description("UUID of the desired Employee Id.")),
 						requestParameters(
 								parameterWithName("alldetails").description("Get all details of the Employee.")),
-						responseFields(fields.withPath("id").description("Employee UUID Id"),
+						responseFields(fields.withPath("empId").description("Employee UUID Id"),
 								fields.withPath("version").description("Version number"),
-								fields.withPath("name").description("Employee Name"),
-								fields.withPath("age").description("Employee Age"),
+								fields.withPath("empName").description("Employee Name"),
+								fields.withPath("empAge").description("Employee Age"),
 								fields.withPath("createdDate").description("Created Date"),
-								fields.withPath("lastModifiedDate").description("Date Updated"),
+								fields.withPath("modifiedDate").description("Date Updated"),
 								fields.withPath("joiningDate").description("Employee Joining Date"),
-								fields.withPath("employeeType").description("Employee Type"),
-								fields.withPath("salary").description("Base Salary"))));
+								fields.withPath("empType").description("Employee Type"),
+								fields.withPath("salary").description("Base Salary"),
+								fields.withPath("empDob").description("Employee Date Of Birth"))));
 	}
 
 	@Test
 	public void createValidEmployee() throws Exception {
-		EmployeeDto employeeDto = getNewEmployeeDto();
+		EmployeeDto employeeDto = DataProducer.getNewEmployeeDto();
 		String employeeDtoJson = objectMapper.writeValueAsString(employeeDto);
-		given(employeeService.saveNewEmployee(any(EmployeeDto.class))).willReturn(getValidEmployeeDto());
+		given(employeeService.saveNewEmployee(any(EmployeeDto.class))).willReturn(DataProducer.getValidEmployeeDto());
 
 		ConstrainedFields fields = new ConstrainedFields(EmployeeDto.class);
 
 		mockMvc.perform(post(EMPLOYEE_API_PATH).contentType(MediaType.APPLICATION_JSON).content(employeeDtoJson))
 				.andExpect(status().isCreated())
 				.andDo(document("api/v1/employee/post",
-						requestFields(fields.withPath("id").ignored(), fieldWithPath("version").ignored(),
-								fields.withPath("createdDate").ignored(), fieldWithPath("lastModifiedDate").ignored(),
-								fields.withPath("name").description("Employee Name"),
-								fields.withPath("age").description("Employee Age"),
+						requestFields(fields.withPath("empId").ignored(), fieldWithPath("version").ignored(),
+								fields.withPath("createdDate").ignored(), fieldWithPath("modifiedDate").ignored(),
+								fields.withPath("empName").description("Employee Name"),
+								fields.withPath("empAge").description("Employee Age"),
 								fields.withPath("joiningDate").description("Employee Joining Date"),
-								fields.withPath("employeeType").description("Employee Type"),
-								fields.withPath("salary").description("Salary Amount [INR]"))));
+								fields.withPath("empType").description("Employee Type"),
+								fields.withPath("salary").description("Salary Amount [INR]"),
+								fields.withPath("empDob").description("Employee Date Of Birth"))));
 	}
 
 	@Test
 	public void createInvalidEmployee() throws Exception {
-		EmployeeDto employeeDto = getInvalidEmployeeDto();
+		EmployeeDto employeeDto = DataProducer.getInvalidEmployeeDto();
 		String employeeDtoJson = objectMapper.writeValueAsString(employeeDto);
-		given(employeeService.saveNewEmployee(any(EmployeeDto.class))).willReturn(getValidEmployeeDto());
+		given(employeeService.saveNewEmployee(any(EmployeeDto.class))).willReturn(DataProducer.getValidEmployeeDto());
 		mockMvc.perform(post(EMPLOYEE_API_PATH).contentType(MediaType.APPLICATION_JSON).content(employeeDtoJson))
 				.andExpect(status().is4xxClientError());
-	}
-
-	private EmployeeDto getValidEmployeeDto() {
-		return EmployeeDto.builder().id(UUID.randomUUID()).name("TestEmployee").age(24)
-				.employeeType(EmployeeType.LABOUR).salary(BigDecimal.valueOf(1000.00)).build();
-	}
-
-	private EmployeeDto getNewEmployeeDto() {
-		return EmployeeDto.builder().name("Test").age(24).joiningDate(OffsetDateTime.now())
-				.salary(BigDecimal.valueOf(1000.00)).employeeType(EmployeeType.LABOUR).build();
-	}
-
-	private EmployeeDto getInvalidEmployeeDto() {
-		return EmployeeDto.builder().id(UUID.randomUUID()).name("").age(90).employeeType(EmployeeType.LABOUR).build();
 	}
 
 	private static class ConstrainedFields {

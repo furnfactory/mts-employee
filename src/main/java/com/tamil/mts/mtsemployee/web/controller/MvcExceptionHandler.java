@@ -35,7 +35,7 @@ public class MvcExceptionHandler {
 			validationErrors.add(String.format("%s = %s, message: %s", fieldError.getField(),
 					fieldError.getRejectedValue(), fieldError.getDefaultMessage()));
 		});
-		log.info("MethodArgumentNotValidException occurred: {}", ex.getMessage());
+		log.debug("MethodArgumentNotValidException occurred: {}", ex.getMessage());
 		return new ResponseEntity<>(validationErrors, HttpStatus.BAD_REQUEST);
 	}
 
@@ -46,7 +46,7 @@ public class MvcExceptionHandler {
 		ex.getConstraintViolations().forEach(violation -> {
 			validationErrors.add(violation.getPropertyPath() + "_" + violation.getMessage());
 		});
-		log.info("ConstraintViolationException occurred: {}", ex.getMessage());
+		log.debug("ConstraintViolationException occurred: {}", ex.getMessage());
 		return new ResponseEntity<>(validationErrors, HttpStatus.BAD_REQUEST);
 	}
 

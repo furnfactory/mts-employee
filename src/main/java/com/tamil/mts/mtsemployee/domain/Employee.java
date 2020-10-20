@@ -16,6 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.Version;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.AllArgsConstructor;
@@ -35,8 +37,10 @@ import lombok.NoArgsConstructor;
 public class Employee {
 
 	@Id
-	@GeneratedValue
-	@Column(length = 36, columnDefinition = "varchar", updatable = false, nullable = false)
+	@GeneratedValue(generator = "UUID")
+	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Type(type="org.hibernate.type.UUIDCharType")
+    @Column(length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = false)
 	private UUID id;
 	
 	@Version

@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tamil.mts.mtsemployee.services.EmployeeService;
 import com.tamil.mts.mtsemployee.web.model.EmployeeDto;
 
+import lombok.RequiredArgsConstructor;
 import lombok.val;
 
 /**
@@ -34,15 +35,12 @@ import lombok.val;
  *
  */
 @Validated
+@RequiredArgsConstructor
 @RequestMapping("api/v1/employee")
 @RestController
 public class EmployeeController {
 
 	private final EmployeeService employeeService;
-
-	public EmployeeController(EmployeeService employeeService) {
-		this.employeeService = employeeService;
-	}
 
 	@GetMapping({ "/{empId}" })
 	public ResponseEntity<EmployeeDto> getEmployeeById(@NotNull @PathVariable("empId") UUID empId) {
@@ -63,7 +61,7 @@ public class EmployeeController {
 	public ResponseEntity updateEmployee(@NotNull @PathVariable("empId") UUID empId,
 			@Valid @NotNull @RequestBody EmployeeDto employeeDto) {
 		employeeService.updateEmployee(empId, employeeDto);
-		return new ResponseEntity(HttpStatus.NOT_IMPLEMENTED);
+		return new ResponseEntity(HttpStatus.OK);
 	}
 
 	@DeleteMapping({ "/{empId}" })

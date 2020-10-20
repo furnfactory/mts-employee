@@ -15,11 +15,13 @@ import com.tamil.mts.mtsemployee.web.model.EmployeeDto;
  */
 public interface EmployeeService {
 
+	Long getTotalEmployeeCount();
+	
 	EmployeeDto getEmployeeById(UUID employeeId);
 
 	EmployeeDto saveNewEmployee(EmployeeDto employeeDto);
 
-	void updateEmployee(UUID empId, EmployeeDto employeeDto);
+	EmployeeDto updateEmployee(UUID empId, EmployeeDto employeeDto);
 
 	void deleteEmployeeById(UUID empId);
 }

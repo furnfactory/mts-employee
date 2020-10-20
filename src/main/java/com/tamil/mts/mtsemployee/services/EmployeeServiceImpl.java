@@ -5,12 +5,18 @@
  */
 package com.tamil.mts.mtsemployee.services;
 
+import java.sql.Timestamp;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import com.tamil.mts.mtsemployee.domain.Employee;
+import com.tamil.mts.mtsemployee.mapper.EmployeeMapper;
+import com.tamil.mts.mtsemployee.repositories.EmployeeRepository;
+import com.tamil.mts.mtsemployee.web.controller.DomainNotFoundException;
 import com.tamil.mts.mtsemployee.web.model.EmployeeDto;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -18,23 +24,39 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 @Slf4j
-@Service
+@RequiredArgsConstructor
+@Service("beerService")
 public class EmployeeServiceImpl implements EmployeeService {
 
+	private final EmployeeRepository employeeRepository;
+
+	private final EmployeeMapper employeeMapper;
+
+	@Override
+	public Long getTotalEmployeeCount() {
+		return employeeRepository.count();
+	}
+	
 	@Override
 	public EmployeeDto getEmployeeById(UUID employeeId) {
-		return EmployeeDto.builder().id(UUID.randomUUID()).name("Murugan").age(33).build();
+		return employeeMapper.convertToModel(employeeRepository.findById(employeeId).get());
 	}
 
 	@Override
 	public EmployeeDto saveNewEmployee(EmployeeDto employeeDto) {
-		return EmployeeDto.builder().id(UUID.randomUUID()).build();
+		return employeeMapper.convertToModel(employeeRepository.save(employeeMapper.converToDomain(employeeDto)));
+		// return EmployeeDto.builder().id(UUID.randomUUID()).build();
 	}
 
 	@Override
-	public void updateEmployee(UUID empId, EmployeeDto employeeDto) {
-		// TODO Implement update Employee
-		log.info("TODO: Implement update Employee");
+	public EmployeeDto updateEmployee(UUID empId, EmployeeDto employeeDto) {
+		Employee employee = employeeRepository.findById(empId).get();
+		employee.setName(employeeDto.getName());
+		employee.setAge(employeeDto.getAge());
+		employee.setSalary(employeeDto.getSalary());
+		employee.setEmployeeType(employeeDto.getEmployeeType().toString());
+		employee.setJoiningDate(Timestamp.valueOf(employeeDto.getJoiningDate().toLocalDateTime()));
+		return employeeMapper.convertToModel(employeeRepository.save(employee));
 	}
 
 	@Override
