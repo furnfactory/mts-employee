@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import com.tamil.mts.mtsemployee.domain.Employee;
 import com.tamil.mts.mtsemployee.mapper.EmployeeMapper;
 import com.tamil.mts.mtsemployee.repositories.EmployeeRepository;
-import com.tamil.mts.mtsemployee.web.controller.DomainNotFoundException;
 import com.tamil.mts.mtsemployee.web.model.EmployeeDto;
 
 import lombok.RequiredArgsConstructor;
