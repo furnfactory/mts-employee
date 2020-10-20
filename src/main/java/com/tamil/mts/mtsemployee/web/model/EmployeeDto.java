@@ -19,6 +19,7 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -67,6 +68,7 @@ public class EmployeeDto {
 	//@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssZ", shape = JsonFormat.Shape.STRING, timezone = "UTC")
 	@JsonSerialize(using = DateTimeSerializer.class)
 	@JsonDeserialize(using = DateTimeDeserializer.class)
+	@JsonAlias({"joining_date","joiningdate"})
 	private OffsetDateTime joiningDate;
 
 	@NotNull
