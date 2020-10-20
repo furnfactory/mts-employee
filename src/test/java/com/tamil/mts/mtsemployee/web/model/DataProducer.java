@@ -37,7 +37,7 @@ public class DataProducer {
 	public static EmployeeDto getNewEmployeeDto() {
 		EmployeeDto employee = EmployeeDto.builder().name(RandomStringUtils.randomAlphabetic(10, 60))
 				.age(RandomUtils.nextInt(18, 60))
-				.joiningDate(OffsetDateTime.now(ZoneOffset.UTC).minusDays(RandomUtils.nextLong(100, 3000)))
+				.joiningDate(OffsetDateTime.now(ZoneOffset.of("+05:30")).minusDays(RandomUtils.nextLong(100, 3000)))
 				.salary(NumberUtils.toScaledBigDecimal(RandomUtils.nextDouble(1000, 5000)))
 				.employeeType(EmployeeType.ACCOUNTANT).build();
 		log.info("Valid New Employee generated: " + employee.toString());
