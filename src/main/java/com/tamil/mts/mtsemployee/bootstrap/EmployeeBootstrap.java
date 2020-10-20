@@ -13,7 +13,9 @@ import org.springframework.stereotype.Component;
 
 import com.tamil.mts.mtsemployee.domain.Employee;
 import com.tamil.mts.mtsemployee.repositories.EmployeeRepository;
+import com.tamil.mts.mtsemployee.services.EmployeeService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -22,10 +24,12 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Component
+@RequiredArgsConstructor 
 public class EmployeeBootstrap implements CommandLineRunner {
 
-	@Autowired
-	private EmployeeRepository employeeRepository;
+	private final EmployeeService employeeService;
+	
+	private final DataProducer dataProducer;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -34,8 +38,8 @@ public class EmployeeBootstrap implements CommandLineRunner {
 
 	private void loadEmployees() {
 		log.info(this.getClass().getSimpleName() + ": loadEmployees()");
-		employeeRepository.save(Employee.builder().id(UUID.randomUUID()).name("Murugan").build());
-		employeeRepository.save(Employee.builder().id(UUID.randomUUID()).name("Test").build());
-		log.info("Total Employees Loaded : " + employeeRepository.count());
+		employeeService.saveNewEmployee(dataProducer.getValidEmployeeDto());
+		employeeService.saveNewEmployee(dataProducer.getValidEmployeeDto());
+		log.info("Total Employees Loaded : " + employeeService.getTotalEmployeeCount().toString());
 	}
 }

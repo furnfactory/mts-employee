@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.tamil.mts.mtsemployee.domain.Employee;
 import com.tamil.mts.mtsemployee.mapper.EmployeeMapper;
 import com.tamil.mts.mtsemployee.repositories.EmployeeRepository;
+import com.tamil.mts.mtsemployee.web.controller.DomainNotFoundException;
 import com.tamil.mts.mtsemployee.web.model.EmployeeDto;
 
 import lombok.RequiredArgsConstructor;
@@ -24,13 +25,18 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @RequiredArgsConstructor
-@Service
+@Service("beerService")
 public class EmployeeServiceImpl implements EmployeeService {
 
 	private final EmployeeRepository employeeRepository;
 
 	private final EmployeeMapper employeeMapper;
 
+	@Override
+	public Long getTotalEmployeeCount() {
+		return employeeRepository.count();
+	}
+	
 	@Override
 	public EmployeeDto getEmployeeById(UUID employeeId) {
 		return employeeMapper.convertToModel(employeeRepository.findById(employeeId).get());
