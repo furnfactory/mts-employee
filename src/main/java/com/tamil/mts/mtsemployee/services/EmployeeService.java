@@ -19,7 +19,7 @@ public interface EmployeeService {
 
 	EmployeeDto saveNewEmployee(EmployeeDto employeeDto);
 
-	void updateEmployee(UUID empId, EmployeeDto employeeDto);
+	EmployeeDto updateEmployee(UUID empId, EmployeeDto employeeDto);
 
 	void deleteEmployeeById(UUID empId);
 }
