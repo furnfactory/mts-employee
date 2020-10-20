@@ -38,8 +38,8 @@ public class EmployeeBootstrap implements CommandLineRunner {
 
 	private void loadEmployees() {
 		log.info(this.getClass().getSimpleName() + ": loadEmployees()");
-		employeeService.saveNewEmployee(dataProducer.getValidEmployeeDto());
-		employeeService.saveNewEmployee(dataProducer.getValidEmployeeDto());
+		employeeService.saveNewEmployee(dataProducer.getNewEmployeeDto());
+		employeeService.saveNewEmployee(dataProducer.getNewEmployeeDto());
 		log.info("Total Employees Loaded : " + employeeService.getTotalEmployeeCount().toString());
 	}
 }

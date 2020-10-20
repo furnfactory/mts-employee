@@ -45,7 +45,7 @@ public class EmployeeDtoTest {
 		String employeeJson = "{\"id\":\"858eacd8-30a4-49e0-a10c-c5fd028178c4\","
 				+ "\"version\":null,\"empName\":\"murugan\",\"empAge\":40,\"createdDate\":null,"
 				+ "\"lastModifiedDate\":null,\"joining_date\":\"2020-10-20T07:29:31+05:30\","
-				+ "\"employeeType\":\"LABOUR\",\"salary\":3998.60,\"empDob\":\"1988-08-15\"}";
+				+ "\"empType\":\"LABOUR\",\"salary\":3998.60,\"empDob\":\"1988-08-15\"}";
 		EmployeeDto employee = objectMapper.readValue(employeeJson, EmployeeDto.class);
 		log.info("Deserialize EmployeeJson: " + employeeJson);
 		log.info("Employee DTO : " + employee);

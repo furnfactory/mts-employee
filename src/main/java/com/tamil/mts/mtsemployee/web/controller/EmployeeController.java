@@ -61,7 +61,7 @@ public class EmployeeController {
 	public ResponseEntity updateEmployee(@NotNull @PathVariable("empId") UUID empId,
 			@Valid @NotNull @RequestBody EmployeeDto employeeDto) {
 		employeeService.updateEmployee(empId, employeeDto);
-		return new ResponseEntity(HttpStatus.NOT_IMPLEMENTED);
+		return new ResponseEntity(HttpStatus.OK);
 	}
 
 	@DeleteMapping({ "/{empId}" })
