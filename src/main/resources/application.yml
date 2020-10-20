@@ -8,5 +8,5 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     
-user:
+service:
   timezone: "+05:30"

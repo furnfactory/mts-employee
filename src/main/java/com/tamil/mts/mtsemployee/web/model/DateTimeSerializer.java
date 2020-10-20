@@ -26,15 +26,16 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class DateTimeSerializer extends JsonSerializer<OffsetDateTime> {
 
-	@Value("${user.timezone}")
+	@Value("${service.timezone}")
 	private String timeZone;
 
 	@Override
 	public void serialize(OffsetDateTime value, JsonGenerator jsonGenerator, SerializerProvider serializers)
 			throws IOException {
 		//Serialize the time to local time based on the user timezone format
-		log.info("OffsetDateTime: " + value + " serialized as " + value.withOffsetSameInstant(ZoneOffset.of(timeZone)));
-		jsonGenerator.writeObject(value.withOffsetSameLocal(ZoneOffset.of(timeZone)));
+		log.info("TimeZone: "+timeZone);
+		log.info("OffsetDateTime: " + value + " serialized as " + value.withOffsetSameInstant(ZoneOffset.of("+05:30")));
+		jsonGenerator.writeObject(value.withOffsetSameLocal(ZoneOffset.of("+05:30")));
 	}
 
 }

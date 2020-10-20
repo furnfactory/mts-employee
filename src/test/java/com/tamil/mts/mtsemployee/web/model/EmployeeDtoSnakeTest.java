@@ -49,7 +49,7 @@ public class EmployeeDtoSnakeTest {
 	public void deSerializeEmployeeJson() throws JsonProcessingException {
 		String jsonFormatEmployee = "{\"id\":\"fd024a25-51e3-458d-adbf-914f1b940b2a\","
 				+ "\"version\":null,\"name\":\"gSLURHf\",\"age\":26,\"created_date\":null,"
-				+ "\"last_modified_date\":null,\"joining_date\":\"2013-01-06T21:18:08+0530\","
+				+ "\"last_modified_date\":null,\"joining_date\":\"2013-01-06T21:18:08+05:30\","
 				+ "\"employee_type\":\"LABOUR\",\"salary\":3885.37}\"";
 		EmployeeDto employee = objectMapper.readValue(jsonFormatEmployee, EmployeeDto.class);
 		assertNotNull(employee, "Employee data in Json format deserialized to required Java object using Jackson.");
