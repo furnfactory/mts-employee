@@ -62,5 +62,7 @@ public class Employee {
     private String employeeType;
     
     private BigDecimal salary;
+    
+    private Timestamp dateOfBirth;
 	
 }
