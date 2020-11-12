@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @RequiredArgsConstructor
-@Service("beerService")
+@Service("employeeService")
 public class EmployeeServiceImpl implements EmployeeService {
 
 	private final EmployeeRepository employeeRepository;
@@ -43,7 +43,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public EmployeeDto saveNewEmployee(EmployeeDto employeeDto) {
-		return employeeMapper.convertToModel(employeeRepository.save(employeeMapper.converToDomain(employeeDto)));
+		return employeeMapper.convertToModel(employeeRepository.save(employeeMapper.convertToDomain(employeeDto)));
 		// return EmployeeDto.builder().id(UUID.randomUUID()).build();
 	}
 
@@ -60,8 +60,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public void deleteEmployeeById(UUID empId) {
-		// TODO Implement delete Employee
-		log.info("TODO: Implement delete Employee");
+		employeeRepository.deleteById(empId);
 	}
 
 }

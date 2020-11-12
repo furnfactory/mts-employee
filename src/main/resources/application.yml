@@ -9,3 +9,6 @@ spring:
     
 service:
   timezone: "+05:30"
+  
+server:
+  port: 8001

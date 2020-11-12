@@ -14,11 +14,11 @@ import com.tamil.mts.mtsemployee.web.model.EmployeeDto;
  * @author murugan
  *
  */
-@Mapper(uses = {DateTimeMapper.class, LocalDateMapper.class})
+@Mapper(uses = {DateTimeMapper.class, LocalDateMapper.class, LocalTimestampMapper.class})
 public interface EmployeeMapper {
 
 	EmployeeDto convertToModel(Employee employee);
 
-	Employee converToDomain(EmployeeDto employeeDto);
+	Employee convertToDomain(EmployeeDto employeeDto);
 	
 }

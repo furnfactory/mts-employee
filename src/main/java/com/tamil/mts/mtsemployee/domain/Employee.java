@@ -6,6 +6,7 @@
 package com.tamil.mts.mtsemployee.domain;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.UUID;
 
@@ -63,6 +64,6 @@ public class Employee {
     
     private BigDecimal salary;
     
-    private Timestamp dateOfBirth;
+    private Date dateOfBirth;
 	
 }

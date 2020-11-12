@@ -64,9 +64,10 @@ public class EmployeeController {
 		return new ResponseEntity(HttpStatus.OK);
 	}
 
+	@SuppressWarnings({ "rawtypes" })
 	@DeleteMapping({ "/{empId}" })
-	@ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
-	public void deleteEmployee(@NotNull @PathVariable("empId") UUID empId) {
+	public ResponseEntity deleteEmployee(@NotNull @PathVariable("empId") UUID empId) {
 		employeeService.deleteEmployeeById(empId);
+		return new ResponseEntity(HttpStatus.OK);
 	}
 }
